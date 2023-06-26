@@ -25,3 +25,24 @@ test("button turns blue when clicked", () => {
 });
 
 //You can have many assertion between the same test, they dont have to be separate like here
+
+test("initial conditions", () => {
+  render(<App />);
+  //check that button starts out enabled
+  const colorButton = screen.getByRole("button", { name: "Change to blue" });
+  expect(colorButton).toBeEnabled();
+
+  //check that the checkbox starts out unchecked
+  const checkbox = screen.getByRole("checkbox");
+  expect(checkbox).not.toBeChecked(); //.not es una negacion de jest, como no existe ninguna assertion que sea no sea checked se usa asi
+});
+
+test("is button disabled", () => {
+  render(<App />);
+  const colorButton = screen.getByRole("button");
+  const inputBox = screen.getByRole("checkbox");
+  fireEvent.click(inputBox);
+  expect(colorButton).toBeDisabled();
+  fireEvent.click(inputBox);
+  expect(colorButton).toBeEnabled();
+});
