@@ -46,3 +46,13 @@ test("is button disabled", () => {
   fireEvent.click(inputBox);
   expect(colorButton).toBeEnabled();
 });
+
+test("is button gray when disabled", () => {
+  render(<App />);
+  const colorButton = screen.getByRole("button");
+  const inputBox = screen.getByRole("checkbox");
+  fireEvent.click(inputBox);
+  expect(colorButton).toHaveStyle({ backgroundColor: "gray" });
+  fireEvent.click(inputBox);
+  expect(colorButton).toHaveStyle("background-color:red");
+});
